@@ -1,0 +1,50 @@
+<div class="row">
+    <h1 class="text-center">
+        <a href="/goback"><span class="oi oi-arrow-circle-left h3"></a>
+
+        Tipos de Objetivo Eliminados:
+    </h1>
+</div>
+
+<table  class='table table-striped table-bordered table-sm'>
+    <thead>
+    <tr class="table-primary">
+        <th scope="col">
+            Borrado
+        </th>
+        <th scope="col">
+            Nombre
+        </th>
+        <th scope="col">
+            
+        </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% for (var i in targettypes) { %> 
+        <% var targettype = targettypes[i]; %>      
+
+        <tr>
+            <td>
+                <%= moment(targettype.deletedAt).format("DD-MM-YYYY") %>
+            </td>
+            <td>
+                <%= targettype.name %>
+            </td>
+            <td>
+                <% if (session.user && session.user.isAdmin) { %>
+                <a href="/trash/targettypes/<%= targettype.id %>?_method=DELETE"
+                   onClick="return confirm('¿Seguro que quiere borrar DEFINITIVAMENTE el tipo de objetivo: <%= targettype.name %>?');"><span class="oi oi-delete h4"></a>
+                <% } %>
+
+                <% if (session.user && session.user.isAdmin) { %>
+                <a href="/trash/targettypes/<%= targettype.id %>?_method=POST"><span class="oi oi-loop-circular h4"></span></a>
+                <% } %>
+            </td>
+         </tr> 
+    <% } %>
+    </tbody>
+
+</table>
+

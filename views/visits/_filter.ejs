@@ -1,0 +1,103 @@
+<script src="/javascripts/misc_form.js"></script>
+
+
+<div class="card border-primary my-2">
+    <div class="card-body p-1 m-1">
+
+        <form method="get" action="<%= url %>" id="filterForm" >
+
+            <input type="hidden" name="forceCustomerId" value=<%= locals.forceCustomerId %>>
+
+
+            <h4 class="card-title">
+                Filtros:
+
+                <a href="#" onclick="submitForm('filterForm')"><span class="oi oi-magnifying-glass h3"></span></a>
+
+                <a href="#" onClick="cleanupForm('filterForm'); return false"><span
+                            class="oi oi-circle-x h3"></span></a>
+
+            </h4>
+
+            <label>Planificado desde:</label>
+            <input type="text"
+                   id="searchdateafter"
+                   name="dateafter"
+                   value="<%= locals.searchdateafter || '' %>"
+                   placeholder="dd-mm-aaaa"
+                   pattern="\d\d-\d\d-\d\d\d\d"
+                   size="11"
+                   autocomplete="off"/>
+
+            <label>Hasta:</label>
+            <input type="text"
+                   id="searchdatebefore"
+                   name="datebefore"
+                   value="<%= locals.searchdatebefore || '' %>"
+                   placeholder="dd-mm-aaaa"
+                   pattern="\d\d-\d\d-\d\d\d\d"
+                   size="11"
+                   autocomplete="off"/>
+
+            <% var today = moment().format("DD-MM-YYYY"); %>
+            <input type="image" class="icon right" src="/icons/today.png" border="0"
+                   onClick="setDate('<%= today %>', 'searchdateafter', 'searchdatebefore'); return false;"/>
+
+            <br/>
+
+            <% if (!locals.customer) { %>
+            <label>Cliente:</label>
+            <input type="text" name="customer" value="<%= locals.searchcustomer || '' %>"
+                   placeholder="Cliente a buscar"
+                   size="40" autocomplete="off"/>
+
+            <br/>
+
+            <label>Clientes de la fábrica:</label>
+            <select name="companyid">
+
+                <option value="" <%= !locals.searchCompanyId ? "selected" : "" %> >
+                    Todas
+                </option>
+
+                <% for (var i in companiesInfo) { %>
+                <% var companyInfo = companiesInfo[i]; %>
+                <option value="<%= companyInfo.id %>" <%= companyInfo.id == locals.searchCompanyId ? "selected" : "" %> >
+                    <%= companyInfo.name %>
+                </option>
+                <% } %>
+            </select>
+
+            <br/>
+
+            <% } %>
+
+            <% if (!locals.salesman) { %>
+            <label>Vendedor:</label>
+            <input type="text" name="salesman" value="<%= locals.searchsalesman || '' %>"
+                   placeholder="Vendedor a buscar"
+                   size="40" autocomplete="off"/>
+
+            <br/>
+            <% } %>
+
+            <div>
+                <label>Favoritas:</label>
+                <input type="checkbox" name="favourites"
+                       value="1" <%= locals.searchfavourites ? 'checked' : '' %> >
+                <img class="star" src="/icons/star_yellow.png" \>
+            </div>
+
+            <div>
+                <label>Solo pendientes de realizar:</label>
+                <input type="checkbox" name="notfulfilled" value="1" <%= locals.searchnotfulfilled ? 'checked' : '' %> >
+            </div>
+
+            <div>
+                <label>Solo objetivos pendientes:</label>
+                <input type="checkbox" name="pendingtargets" value="1" <%= locals.searchpendingtargets ? 'checked' : '' %> >
+            </div>
+        </form>
+
+    </div>
+</div>

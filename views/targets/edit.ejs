@@ -1,0 +1,23 @@
+
+<script src="/javascripts/misc_form.js"></script>
+
+<form id="myForm" method="post" action="/visits/<%= visit.id %>/targets/<%= target.id %>?_method=PUT" >
+
+	<div class="row">
+		<h1 class="text-center">
+			Editar Objetivo
+
+			<a href="#" onclick="return validateForm() && submitForm('myForm')"><span class="oi oi-circle-check h3"></span></a>
+
+			<a href="/goback"><span class="oi oi-circle-x h3"></span></a>
+		</h1>
+	</div>
+
+     <% include _form.ejs %>
+
+	<a href="#" onclick="return validateForm() && submitForm('myForm')"><span class="oi oi-circle-check h3"></span></a>
+
+	<a href="/goback"><span class="oi oi-circle-x h3"></span></a>
+
+</form>
+

@@ -1,0 +1,25 @@
+
+<div class="form-row">
+    <div class="form-group col">
+        <label for="post_title">Título:</label>
+        <input type="text"
+               class="form-control"
+               id="post_title"
+               name="title"
+               value="<%= post.title %>"
+               placeholder="Título"
+               autocomplete="off"/>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group col">
+        <label for="post_body">Contenido:</label>
+        <textarea type="text"
+                  class="form-control"
+                  id="post_body"
+                  name="body"
+                  placeholder="Introduzca aquí el contenido del post"
+                  rows="15"><%= post.body %></textarea>
+    </div>
+</div>

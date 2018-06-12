@@ -1,0 +1,114 @@
+
+<script>
+    function validateForm() {
+
+        var msgs = [];
+
+        var cid = document.getElementById('companyId').value;
+        if (cid === "0") {
+            msgs.push('- Debe seleccionar una fábrica.');
+        }
+
+        var ttid = document.getElementById('targettypeId').value;
+        if (ttid === "0") {
+            msgs.push('- Debe seleccionar un tipo de objetivo.');
+        }
+
+        if (msgs.length) {
+            alert("Existen errores:\n" + msgs.join("\n"));
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>
+
+
+<div class="form-group">
+	<label for="companyId">Fábrica:</label>
+
+		<select name="companyId"
+				class="form-control"
+				id="companyId" >
+
+		    <option value="0"  <%= target.CompanyId === 0 ? "selected" : "" %> > 
+    				Seleccione una fábrica
+    		</option>
+
+			<% for (var i in companies) { %>
+				<% var company = companies[i]; %>
+    			<option value="<%= company.id %>"  <%= company.id === target.CompanyId ? "selected" : "" %> > 
+    				<%= company.name %>  
+    			</option>
+    		<% } %>
+		</select>
+</div>
+
+<div class="form-group">
+	<label for="targettypeId">Tipo de Objetivo</label>
+
+		<select name="targettypeId"
+				class="form-control"
+				id="targettypeId" >
+
+		    <option value="0"  <%= target.TargetTypeId === 0 ? "selected" : "" %> > 
+    				Seleccione un tipo
+    		</option>
+
+			<% for (var i in targettypes) { %>
+				<% var targettype = targettypes[i]; %>
+    			<option value="<%= targettype.id %>"  <%= targettype.id === target.TargetTypeId ? "selected" : "" %> > 
+    				<%= targettype.name %>  
+    			</option>
+    		<% } %>
+		</select>
+</div>
+
+<div class="form-group">
+	<label for="exampleInputPassword1">Estado:</label>
+
+	<div class="form-check">
+		<label class="form-check-label">
+			<input type="radio"
+				   class="form-check-input"
+				   name="success"
+				   value="nulo" <%= target.success === null ? "checked" : "" %> >
+			Pendiente.
+		</label>
+	</div>
+
+	<div class="form-check">
+		<label class="form-check-label">
+
+			<input type="radio"
+				   class="form-check-input"
+				   name="success"
+				   value="si" <%= target.success === true ? "checked" : "" %> >
+			Cumplido.
+		</label>
+	</div>
+
+	<div class="form-check">
+		<label class="form-check-label">
+
+			<input type="radio"
+				   class="form-check-input"
+				   name="success"
+				   value="no" <%= target.success === false ? "checked" : "" %> >
+			Fallido.
+		</label>
+	</div>
+
+</div>
+
+<div class="form-group">
+	<label for="notes">Observaciones:</label>
+
+		<textarea type="text"
+				  class="form-control"
+				  id="notes"
+				  name="notes"
+				  placeholder="Observaciones"
+				  rows="5"><%= target.notes %></textarea>
+</div>
+

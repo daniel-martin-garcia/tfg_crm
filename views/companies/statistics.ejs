@@ -1,0 +1,64 @@
+<div class="row">
+    <h1 class="text-center">
+        <a href="/goback"><span class="oi oi-arrow-circle-left h3"></a>
+
+        Estadísticas  <%= company.name %>
+    </h1>
+</div>
+
+
+<div style="overflow-x:auto;">
+
+    <table  class='table table-striped table-bordered table-sm'>
+        <thead>
+        <tr class="table-primary">
+            <th scope="col"></th>
+            <% for (var j in salesmen) { %>
+            <% var salesman = salesmen[j]; %>
+            <th colspan="2" scope="col"> <%= salesman.fullname %> </th>
+            <% } %>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% for (var i in customers) { %>
+        <% var customer = customers[i]; %>
+
+        <tr>
+            <th scope="row" class="table-primary">
+                <%= customer.name %>
+                <br />
+                <small>
+                    <%= customer.address1 %>
+                    <br/>
+                    <%= customer.address2 %>
+                    <%= customer.postalCode %>-<%= customer.city %>
+                </small>
+            </th>
+
+            <% for (var j in salesmen) { %>
+            <% var salesman = salesmen[j]; %>
+            <% var total = counters[salesman.id] && counters[salesman.id][customer.id] && counters[salesman.id][customer.id].total || 0; %>
+            <% var dones = counters[salesman.id] && counters[salesman.id][customer.id] && counters[salesman.id][customer.id].done || 0 %>
+            <% var fails = counters[salesman.id] && counters[salesman.id][customer.id] && counters[salesman.id][customer.id].fail || 0 %>
+            <% var pendings = counters[salesman.id] && counters[salesman.id][customer.id] && counters[salesman.id][customer.id].pending || 0 %>
+
+            <td>
+                <span class="text-nowrap">Total = <%= total %></span>
+                <br/>
+                <small><span class="text-success text-nowrap">Realizadas = <%= dones %></span></small>
+                <br/>
+                <small><span class="text-danger text-nowrap">Fallidas = <%= fails %></span></small>
+                <br/>
+                <small><span class="text-warning text-nowrap">Pendientes = <%= pendings %></span></small>
+            </td>
+            <td>
+                <%= total != 0 ? (dones / total * 100).toFixed(2) + "%" : "0.00%" %>
+            </td>
+            <% } %>
+        </tr>
+        <% } %>
+        </tbody>
+
+    </table>
+</div>

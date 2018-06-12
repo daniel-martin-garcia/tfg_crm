@@ -1,0 +1,25 @@
+
+<script src="/javascripts/misc_form.js"></script>
+
+<form id="myForm" method="post" action="/users"  enctype="multipart/form-data" >
+
+
+	<div class="row">
+		<h1 class="text-center">
+			Crear Usuario
+
+			<a href="#" onclick="return confirmPassword() && submitForm('myForm')"><span class="oi oi-circle-check h3"></span></a>
+
+			<a href="/goback"><span class="oi oi-circle-x h3"></span></a>
+		</h1>
+	</div>
+
+    <% var customerShowView = false; %>
+
+    <% include _form.ejs %>
+
+	<a href="#" onclick="return confirmPassword() && submitForm('myForm')"><span class="oi oi-circle-check h3"></span></a>
+
+	<a href="/goback"><span class="oi oi-circle-x h3"></span></a>
+
+</form>

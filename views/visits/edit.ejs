@@ -1,0 +1,32 @@
+
+<script src="/javascripts/misc_form.js"></script>
+
+<form id="myForm" method="post" action="/visits/<%= visit.id %>?_method=PUT" >
+
+	<div class="row">
+		<h1 class="text-center">
+			Editar Visita
+
+			<a href="#" onclick="return validateForm() && submitForm('myForm')"><span class="oi oi-circle-check h3"></span></a>
+
+			<a href="/reload"><span class="oi oi-circle-x h3"></span></a>
+
+		</h1>
+	</div>
+
+    <% include _form.ejs %>
+
+	<a href="#" onclick="return validateForm() && submitForm('myForm')"><span class="oi oi-circle-check h3"></span></a>
+
+	<a href="/reload"><span class="oi oi-circle-x h3"></span></a>
+
+</form>
+
+
+<%  var targets = visit.Targets; %>
+
+<%  locals.readwrite = false; %>
+
+<hr />
+	<%- include ../targets/index.ejs %>
+<hr />

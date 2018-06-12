@@ -1,0 +1,51 @@
+<div class="row">
+    <h1 class="text-center">
+        <a href="/goback"><span class="oi oi-arrow-circle-left h3"></a>
+
+        Fábricas Eliminadas:
+    </h1>
+</div>
+
+<table  class='table table-striped table-bordered table-sm'>
+    <thead>
+    <tr class="table-primary">
+        <th scope="col">
+            Borrado
+        </th>
+        <th scope="col">
+            Nombre
+        </th>
+
+        <th scope="col">
+        </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% for (var i in companies) { %> 
+        <% var company = companies[i]; %>      
+
+        <tr>
+            <td>
+                <%= moment(company.deletedAt).format("DD-MM-YYYY") %>
+            </td>
+            <td>
+                <%= company.name %>
+            </td>
+
+            <td>
+                <% if (session.user && session.user.isAdmin) { %>
+                <a href="/trash/companies/<%= company.id %>?_method=DELETE"
+                   onClick="return confirm('¿Seguro que quiere borrar DEFINITIVAMENTE la fábrica: <%= company.name %>?');"><span class="oi oi-delete h4"></a>
+                <% } %>
+
+                <% if (session.user && session.user.isAdmin) { %>
+                <a href="/trash/companies/<%= company.id %>?_method=POST"><span class="oi oi-loop-circular h4"></span></a>
+                <% } %>
+            </td>
+        </tr>
+    <% } %>
+    </tbody>
+
+</table>
+

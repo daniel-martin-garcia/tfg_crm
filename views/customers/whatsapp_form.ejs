@@ -1,0 +1,59 @@
+<script src="/javascripts/misc_form.js"></script>
+<form id="emailForm" method="post" action="/customers/<%= customer.id %>/whatsapp" >
+
+    <div class="col-sm-auto">
+      <div class="row">
+        <h1 class="text-center">
+          <a href="/goback"><span class="oi oi-arrow-circle-left h3"></a>
+
+          Whatsapp a un cliene:
+
+        </h1>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col">
+          <label for="name">Nombre del cliente:</label>
+          <input type="text"
+                 class="form-control"
+                 id="name"
+                 name="name"
+                 value="<%= customer.name %>"
+                 placeholder="Nombre"
+                 autocomplete="off"
+                 readonly
+          />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col">
+          <label for="name">Número móvil:</label>
+          <input type="text"
+                 class="form-control"
+                 id="name"
+                 name="name"
+                 value="<%= customer.phone1 %>"
+                 placeholder="Número móvil"
+                 autocomplete="off"
+                 readonly
+          />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col">
+          <label for="name">Mensaje:</label>
+          <textarea type="text"
+                 class="form-control"
+                 id="name"
+                 name="name"
+                 placeholder="Mensaje"
+                 rows="5"><%= message %></textarea>
+      </div>
+    </div>
+
+    <a href="#" onclick="submitForm('emailForm')"><span class="oi oi-circle-check"></span></a> Enviar Whatsapp al cliente
+
+</form>

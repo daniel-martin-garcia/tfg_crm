@@ -1,0 +1,28 @@
+<div class="row">
+    <h1 class="text-center">
+        Objetivo
+    </h1>
+</div>
+
+<% var typeName = target.TargetType ? target.TargetType.name : "SIN TIPO"   %>
+<% var companyName = target.Company ? target.Company.name : "SIN FABRICA"   %>
+
+
+<p>
+    Fabrica: <%= companyName %>
+</p>
+
+<p>
+    Tipo: <%= typeName %>
+</p>
+
+<p>
+    Estado:
+    <%= target.success === null ? "PENDIENTE" : "" %>
+    <%= target.success === true ? "Cumplido" : "" %>
+    <%= target.success === false ? "Fallido" : "" %>
+</p>
+
+<p>
+  Observaciones: <%- escapeText(target.notes) %>
+</p>

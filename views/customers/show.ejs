@@ -1,0 +1,73 @@
+<div class="row justify-content-between">
+
+	<div class="col-sm-auto">
+
+		<div class="row">
+			<h1 class="text-center">
+				<a href="/goback"><span class="oi oi-arrow-circle-left h3"></a>
+
+				Cliente:
+
+                <% if (session.user && (session.user.isAdmin || session.user.isManager)) { %>
+				<a href="/customers/<%= customer.id %>/edit"><span class="oi oi-pencil h3"></span></a>
+                <% } %>
+			</h1>
+		</div>
+	</div>
+
+	<div class="col-sm-auto">
+
+		<div class="card border-primary my-2">
+			<div class="card-body p-1 m-1">
+
+				<h4 class="card-title">
+					Visitas a este cliente:
+				</h4>
+
+                <% if (session.user && (session.user.isAdmin || session.user.isManager || session.user.isSalesman)) {%>
+                <% if (!customer.archived) { %>
+				<a href="/visits/new?customerId=<%= customer.id %>"><span class="oi oi-plus"></span></a>
+				Crear una visita nueva
+
+				<br/>
+                <% } %>
+                <% } %>
+
+                <% if (session.user && (session.user.isAdmin || session.user.isManager)) {%>
+				<a href="/customers/<%= customer.id %>/visits"><span class="oi oi-eye"></span></a>
+				Ver todas las visitas
+
+				<br/>
+                <% } %>
+
+                <% if (session.user && (session.user.isAdmin || session.user.isManager)) {%>
+				<a href="/customers/<%= customer.id %>/email"><span class="oi oi-envelope-closed"></span></a>
+				Enviar email
+
+				<br/>
+                <% } %>
+
+                <% if (session.user && (session.user.isAdmin || session.user.isManager)) {%>
+				<a href="/customers/<%= customer.id %>/whatsapp/new"><span class="oi oi-chat"></span></a>
+				Enviar mensaje de Whatsapp
+
+				<br/>
+                <% } %>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+<form>
+
+	<% var customerShowView = true; %>
+
+    <% include _form.ejs %>
+</form>
+
+
+

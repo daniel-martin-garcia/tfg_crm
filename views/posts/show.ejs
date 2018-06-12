@@ -1,0 +1,86 @@
+
+<% var authorId = post.Author && post.Author.id || 0; %>
+<% var authorLogin = post.Author && post.Author.login || ""; %>
+<% var authorFullName = post.Author && post.Author.fullname || ""; %>
+<% var authorPhotoUrl = post.Author && post.Author.Photo && post.Author.Photo.url || ""; %>
+
+<div class="row">
+
+    <h1 class="text-center">
+
+        <a href="/goback"><span class="oi oi-arrow-circle-left h3"></span></a>
+
+        Artículo:
+
+        <% if (session.user && (session.user.id == post.AuthorId || session.user.isAdmin) ) { %>
+        <a href="/posts/<%= post.id %>?_method=DELETE"
+           onClick="return confirm('¿Seguro que quiere borrar el post: <%= post.title %>?');"><span
+                    class="oi oi-trash mx-2 h3"></span></a>
+        <% } %>
+    </h1>
+</div>
+
+
+<div class="card bg-light my-2">
+    <div class="card-header">
+        <h1>
+            <div class="float-right h5">
+                <div class="row justify-content-end">
+                    <% if (authorPhotoUrl) { %>
+                    <img src="<%= authorPhotoUrl %>" class="rounded-circle" width="50px" width="50px" height="50px" />
+                    <% } else { %>
+                    <img src="/images/face.png" class="rounded-circle" width="50px" />
+                    <% } %>
+                </div>
+
+                <div class="row justify-content-end">
+                    <% if (authorId) { %>
+                    <% if (session.user.isAdmin) { %>
+                    <a href="/users/<%= authorId %>"> <%= authorFullName %> </a>
+                    <% } else { %>
+                    <%= authorFullName %>
+                    <% } %>
+                    <% } else { %>
+                    <span class='text-danger'><em>sin autor</em></span>
+                    <% } %>
+                </div>
+            </div>
+
+            <div class="row">
+                <%= post.title %>
+            </div>
+
+            <div class="row h3">
+
+
+                <span class="text-muted"> <%= post.updatedAt.toLocaleDateString() %> </span>
+
+
+                <% if (session.user && (session.user.id == post.AuthorId || session.user.isAdmin) ) { %>
+                <a href="/posts/<%= post.id %>/edit"><span class="oi oi-pencil mx-2 h3"></span></a>
+                <% } %>
+
+                <div class=" clearfix"></div>
+        </h1>
+    </div>
+
+
+    <div class="card-body">
+
+        <p class="card-text lead">
+            <%- escapeText(post.body) %>
+        </p>
+
+        <!-- -------------------------- -->
+
+        <% include _indexAttachment.ejs %>
+
+        <!-- -------------------------- -->
+
+        <% var comments = post.Comments; %>
+        <%- include ../comments/index.ejs %>
+
+    </div>
+</div>
+
+

@@ -1,0 +1,56 @@
+<script src="/javascripts/misc_form.js"></script>
+<form id="emailForm" method="post" action="/customers/<%= customer.id %>" >
+
+    <div class="col-sm-auto">
+      <div class="row">
+        <h1 class="text-center">
+          <a href="/goback"><span class="oi oi-arrow-circle-left h3"></a>
+
+          Email a cliente:
+
+        </h1>
+      </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="name">Nombre del cliente:</label>
+            <input type="text"
+                   class="form-control"
+                   id="name"
+                   name="name"
+                   value="<%= customer.name %> (<%=customer.email1%>)"
+                   placeholder="Nombre"
+                   autocomplete="off"
+                   readonly
+            />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="name">Asunto:</label>
+            <input type="text"
+                   class="form-control"
+                   id="name"
+                   name="name"
+                   value="<%= subject %>"
+                   placeholder="Asunto del email"
+                   autocomplete="off"
+            />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="name">Cuerpo del email:</label>
+            <textarea type="text"
+                   class="form-control"
+                   id="name"
+                   name="name"
+                   placeholder="Cuerpo del email"
+                   rows="5"><%= body %></textarea>
+        </div>
+    </div>
+
+    <a href="#" onclick="submitForm('emailForm')"><span class="oi oi-circle-check"></span></a> Enviar email al cliente
+
+</form>

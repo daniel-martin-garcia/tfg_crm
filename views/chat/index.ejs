@@ -1,0 +1,79 @@
+<div class="row">
+    <h1 class="text-center">
+        <a href="/goback"><span class="oi oi-arrow-circle-left h3"></a>
+        Chat
+    </h1>
+</div>
+<div class="row">
+</div>
+
+<style>
+  form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+  form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+  form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+  #messages { list-style-type: none; margin: 0; padding: 0; }
+  #messages li { padding: 5px 10px; }
+  #messages li:nth-child(odd) { background: #eee; }
+</style>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+  $(function () {
+    var input = $('#m');
+    //var username;
+    var connected = false;
+    var typing = false;
+    var lastTypingTime;
+    var socket = io();
+
+    //username = user.fullname;
+    //console.log(username);
+
+    $('form').submit(function(){
+      socket.emit('chat message', input.val());
+      input.val('');
+      return false;
+    });
+
+    input.on('input', function() {
+      if (typing == false) {
+        console.log("Funciona el typing");
+        typing = true;
+        socket.emit('typing');
+      }
+      lastTypingTime = (new Date()).getTime();
+      setTimeout(function () {
+        var typingTimer = (new Date()).getTime();
+        var timeDiff = typingTimer - lastTypingTime;
+        if (timeDiff >= 400 && typing) {
+          socket.emit('stop typing');
+          typing = false;
+        }
+      }, 400);
+    });
+    
+
+    //Socket.on
+    socket.on('chat message', function(msg){
+    	//var user = session.user.fullname;
+      $('#messages').append($('<li>').html("<b> <%= user.fullname%>: </b>" + msg));
+    });
+
+    socket.on('typing', function (data) {
+      $('#messages').append($('<li>').addClass("typing").html("<%= user.fullname%> is typing"));
+    });
+
+    socket.on('stop typing', function (data) {
+      $('.typing:last').remove();
+    });
+
+  });
+</script>
+
+<div>
+	<ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+</div>

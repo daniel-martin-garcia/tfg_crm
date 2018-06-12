@@ -1,0 +1,70 @@
+<script src="/javascripts/misc_form.js"></script>
+<form id="emailForm" method="post" action="/companies/<%= company.id %>" >
+
+    <div class="col-sm-auto">
+      <div class="row">
+        <h1 class="text-center">
+          <a href="/goback"><span class="oi oi-arrow-circle-left h3"></a>
+
+          Email a fábrica:
+
+        </h1>
+      </div>
+    </div>
+
+    <% var AllCustomersName = ''; %>
+    <% var AllCustomersNameArray = []; %>
+    <% var comma = ', '; %>
+
+    <% for (var i in AllCustomers) { %>
+    <% var customer = AllCustomers[i]; %>
+        <% console.log("Customer.name: " + customer.name); %>  
+        <% AllCustomersNameArray[i] = customer.name %>
+
+    <% } %>
+    <% AllCustomersName = AllCustomersNameArray.join(", "); %>
+    <% console.log("AllCustomersName: " + AllCustomersName); %>
+    <% console.log(''); %>
+
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="name">Nombre de los clientes:</label>
+            <input type="text"
+                   class="form-control"
+                   id="name"
+                   name="name"
+                   value="<%= AllCustomersName %>"
+                   placeholder="Nombre"
+                   autocomplete="off"
+                   readonly
+            />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="name">Asunto:</label>
+            <input type="text"
+                   class="form-control"
+                   id="name"
+                   name="name"
+                   value="<%= subject %>"
+                   placeholder="Asunto del email"
+                   autocomplete="off"
+            />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="name">Cuerpo del email:</label>
+            <textarea type="text"
+                   class="form-control"
+                   id="name"
+                   name="name"
+                   placeholder="Cuerpo del email"
+                   rows="5"><%= body %></textarea>
+        </div>
+    </div>
+
+    <a href="#" onclick="submitForm('emailForm')"><span class="oi oi-circle-check"></span></a> Enviar email a los clientes
+
+</form>

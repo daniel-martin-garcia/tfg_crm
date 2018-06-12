@@ -1,0 +1,49 @@
+
+
+<div class="row">
+    <h1 class="text-center">
+        <a href="/goback"><span class="oi oi-arrow-circle-left h3"></a>
+
+        Papelera de Reciclaje
+    </h1>
+</div>
+
+<ul>
+
+    <li>
+        Hay <%= locals.customersCount || "0" %> <b>Clientes</b> en la papelera.
+
+        <a href="/trash/customers"><span class="oi oi-eye"></span></a>
+    </li>
+
+    <li>
+        Hay <%= locals.visitsCount || "0" %> <b>Visitas</b> en la papelera.
+
+        <a href="/trash/visits"><span class="oi oi-eye"></span></a>
+    </li>
+
+    <li>
+        Hay <%= locals.companiesCount || "0" %> <b>Fábricas</b> en la papelera.
+
+        <a href="/trash/companies"><span class="oi oi-eye"></span></a>
+    </li>
+
+    <li>
+        Hay <%= locals.targettypesCount || "0" %> <b>Tipos de Objetivos</b> en la papelera.
+
+        <a href="/trash/targettypes"><span class="oi oi-eye"></span></a>
+    </li>
+
+    <li>
+        Hay <%= locals.usersCount || "0" %> <b>Usuarios</b> en la papelera.
+
+        <a href="/trash/users"><span class="oi oi-eye"></span></a>
+    </li>
+
+    <li>
+        Hay <%= locals.postsCount || "0" %> <b>Artículos del Blog</b> en la papelera.
+
+        <a href="/trash/posts"><span class="oi oi-eye"></span></a>
+    </li>
+
+</ul>

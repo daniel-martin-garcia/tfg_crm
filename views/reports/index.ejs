@@ -1,0 +1,20 @@
+
+
+
+<div class="row">
+    <h1 class="text-center">
+        <a href="/goback"><span class="oi oi-arrow-circle-left h3"></span></a>
+
+        Informes de Eficiencia:
+    </h1>
+</div>
+
+<% for (var i in companies) { %>
+    <% var company = companies[i]; %>
+
+    <ul>
+        <li>
+            <a href="/companies/<%= company.id %>/statistics">Cumplimiento de objetivos para <b><%= company.name %></b>.</a>
+        </li>
+    </ul>
+<% } %>

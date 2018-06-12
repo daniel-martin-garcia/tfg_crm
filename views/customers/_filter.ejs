@@ -1,0 +1,59 @@
+<script src="/javascripts/misc_form.js"></script>
+
+<div class="card border-primary my-2">
+    <div class="card-body p-1 m-1">
+        <form method="get" action="<%= url %>" id="filterForm" >
+
+            <h4 class="card-title">
+                Filtros:
+
+                <a href="#" onclick="submitForm('filterForm')"><span class="oi oi-magnifying-glass h3"></span></a>
+
+                <a href="#" onClick="cleanupForm('filterForm'); return false"><span
+                            class="oi oi-circle-x h3"></span></a>
+            </h4>
+
+
+            <label>Ordenar por:</label>
+            <select name="sortedby">
+
+                <option value="code" <%= locals.sortedby === "code" ? "selected" : "" %> >
+                    Código
+                </option>
+                <option value="name" <%= locals.sortedby === "name" ? "selected" : "" %> >
+                    Nombre
+                </option>
+            </select>
+
+            <br/>
+
+            <label>Código/Nombre:</label>
+            <input type="text" name="codename" value="<%= locals.searchCodeName || '' %>"
+                   placeholder="código o nombre a buscar"
+                   size="30" autocomplete="off"/>
+
+            <br/>
+
+            <label>Clientes de la fábrica:</label>
+            <select name="companyid">
+
+                <option value="" <%= !locals.searchCompanyId ? "selected" : "" %> >
+                    Todas
+                </option>
+
+                <% for (var i in companiesInfo) { %>
+                <% var companyInfo = companiesInfo[i]; %>
+                <option value="<%= companyInfo.id %>" <%= companyInfo.id == locals.searchCompanyId ? "selected" : "" %> >
+                    <%= companyInfo.name %>
+                </option>
+                <% } %>
+            </select>
+
+            <br/>
+
+            <label>Incluir Archivados:</label>
+            <input type="checkbox" name="archived" value="1" <%= locals.searchArchived ? 'checked' : '' %> >
+        </form>
+
+    </div>
+</div>
