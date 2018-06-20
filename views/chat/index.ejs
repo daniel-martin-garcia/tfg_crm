@@ -16,7 +16,7 @@
   #messages li:nth-child(odd) { background: #eee; }
 
   #usersConnected { list-style-type: none; margin: 0; padding: 0; }
-  #usersConnected li { height: 10px; width: 10px; background-color: green; border-radius: 50%;  }
+  .dot { height: 10px; width: 10px; background-color: green; border-radius: 50%; display: inline-block; }
 </style>
 
 <script src="/socket.io/socket.io.js"></script>
@@ -63,9 +63,14 @@
     
 
     //Socket.on
-    socket.on('new user', function(user){
-      console.log("New user:" + user);
-      $('#usersConnected').append($('<li>').addClass("online"+user).html(user));
+    socket.on('new user', function(users){
+      var html = '';
+      for (var i = 0; i<users.length; i++){
+
+        html += '<li class="online'+users[i]+'"><span class="dot"></span> '+users[i]+'</li>';
+      }
+      $('#usersConnected').html('');
+      $('#usersConnected').append(html);
     });
 
     socket.on('chat_message', function(msg, user){
@@ -83,10 +88,14 @@
       $('.typing:last').remove();
     });
 
-    socket.on('user logout', function(user){
-      console.log("Logout user:" + user);
-      $('.online'+user+':last').remove();
+    socket.on('user logout', function(users){
+      var html = '';
+      for (var i = 0; i<users.length; i++){
 
+        html += '<li class="online'+users[i]+'"><span class="dot"></span> '+users[i]+'</li>';
+      }
+      $('#usersConnected').html('');
+      $('#usersConnected').append(html);
     });
 
   });
