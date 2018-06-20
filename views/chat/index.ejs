@@ -14,33 +14,41 @@
   #messages { list-style-type: none; margin: 0; padding: 0; }
   #messages li { padding: 5px 10px; }
   #messages li:nth-child(odd) { background: #eee; }
+
+  #usersConnected { list-style-type: none; margin: 0; padding: 0; }
+  #usersConnected li { height: 10px; width: 10px; background-color: green; border-radius: 50%;  }
 </style>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
+
   $(function () {
     var input = $('#m');
-    //var username;
+    var username = "<%= user.fullname%>";
     var connected = false;
     var typing = false;
     var lastTypingTime;
-    var socket = io();
+    //var socket = io();
+    var socket = io.connect("http://localhost:4000");
+    socket.emit('new user', username);
 
-    //username = user.fullname;
-    //console.log(username);
+    window.onbeforeunload = function() {
+      console.log("Hola");
+      socket.emit('user logout', username);
+    }
 
     $('form').submit(function(){
-      socket.emit('chat message', input.val());
+      console.log("Entra en submit");
+      socket.emit('chat_message', input.val(), username);
       input.val('');
       return false;
     });
 
     input.on('input', function() {
       if (typing == false) {
-        console.log("Funciona el typing");
         typing = true;
-        socket.emit('typing');
+        socket.emit('typing', username);
       }
       lastTypingTime = (new Date()).getTime();
       setTimeout(function () {
@@ -55,25 +63,47 @@
     
 
     //Socket.on
-    socket.on('chat message', function(msg){
-    	//var user = session.user.fullname;
-      $('#messages').append($('<li>').html("<b> <%= user.fullname%>: </b>" + msg));
+    socket.on('new user', function(user){
+      console.log("New user:" + user);
+      $('#usersConnected').append($('<li>').addClass("online"+user).html(user));
     });
 
-    socket.on('typing', function (data) {
-      $('#messages').append($('<li>').addClass("typing").html("<%= user.fullname%> is typing"));
+    socket.on('chat_message', function(msg, user){
+      console.log("Entra en socket on");
+    	//var user = session.user.fullname;
+      $('#messages').append($('<li>').html("<b>"+user + ": </b>" + msg));
+    });
+
+    socket.on('typing', function (user) {
+      $('#messages').append($('<li>').addClass("typing").html(user + " is typing"));
     });
 
     socket.on('stop typing', function (data) {
+      console.log("Entra en stop")
       $('.typing:last').remove();
+    });
+
+    socket.on('user logout', function(user){
+      console.log("Logout user:" + user);
+      $('.online'+user+':last').remove();
+
     });
 
   });
 </script>
 
 <div>
-	<ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+  <div class="row">
+    <div class= "col-md-10" id="chat">
+      <ul id="messages"></ul>
+      <form action="" id="chatForm" >
+        <input name="msg" id="m" autocomplete="off" />
+        <input name="user" type="hidden" value="<%= user %>" />
+        <button>Send</button>
+      </form>
+    </div>
+    <div class= "col-md-2">
+      <ul id="usersConnected"></ul>
+    </div>
+  </div>
 </div>

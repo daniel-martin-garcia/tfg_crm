@@ -124,7 +124,7 @@
 
                     <!-- Chat -->
                     <% if (session.user.isAdmin || session.user.isManager || session.user.isSalesman) { %>
-                    <a class="nav-item nav-link <%= url.match(/^\/chat/) ? 'active' : '' %>" href="/" onclick="javascript:event.target.port=8080"><span
+                    <a class="nav-item nav-link <%= url.match(/^\/chat/) ? 'active' : '' %>" href="/chat/<%= session.user.id %>"><span
                                 class="oi oi-microphone"></span> Chat</a>
                     <% } %>
 

@@ -42,7 +42,7 @@ server.on('listening', onListening);
  var microserver = micro(async(req, res) => {
     console.log('Listening microservice')
  })
- microserver.listen(8080, () => console.log('Listening on 4000'));
+ microserver.listen(8080, () => console.log('Listening on 8080'));
 
 
 /**
@@ -108,11 +108,13 @@ function onListening() {
 var usernames = {};
 var numUsers = 0;
 
+
 //Connection socket io
 io.on('connection', function(socket){
-var addedUser = false;
+  var addedUser = false;
 
   socket.on('chat message', function(msg) {
+    console.log("Entra en socket on");
     io.emit('chat message', msg);
   });
 
@@ -141,7 +143,7 @@ var addedUser = false;
   });
 
   socket.on('typing', function () {
-    io.emit('typing', {
+    socket.broadcast.emit('typing', {
       username: socket.username
     });
   });
@@ -163,5 +165,4 @@ var addedUser = false;
       });
     }
   });
-
 });
