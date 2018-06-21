@@ -4,13 +4,28 @@
         Chat
     </h1>
 </div>
+<div>
+  <div class="row">
+    <div class= "col-md-10" id="chat">
+      <ul id="messages"></ul>
+      <form action="" id="chatForm" >
+        <input name="msg" id="m" autocomplete="off" />
+        <input name="user" type="hidden" value="<%= user %>" />
+        <button>Send</button>
+      </form>
+    </div>
+    <div class= "col-md-2">
+      <ul id="usersConnected"></ul>
+    </div>
+  </div>
+</div>
 <div class="row">
 </div>
 
 <style>
   form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
   form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-  form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+  form button { width: 9%; color: white; background: #007bff; border: none; padding: 10px; }
   #messages { list-style-type: none; margin: 0; padding: 0; }
   #messages li { padding: 5px 10px; }
   #messages li:nth-child(odd) { background: #eee; }
@@ -29,7 +44,6 @@
     var connected = false;
     var typing = false;
     var lastTypingTime;
-    //var socket = io();
     var socket = io.connect("http://localhost:4000");
     socket.emit('new user', username);
 
@@ -66,7 +80,6 @@
     socket.on('new user', function(users){
       var html = '';
       for (var i = 0; i<users.length; i++){
-
         html += '<li class="online'+users[i]+'"><span class="dot"></span> '+users[i]+'</li>';
       }
       $('#usersConnected').html('');
@@ -74,8 +87,6 @@
     });
 
     socket.on('chat_message', function(msg, user){
-      console.log("Entra en socket on");
-    	//var user = session.user.fullname;
       $('#messages').append($('<li>').html("<b>"+user + ": </b>" + msg));
     });
 
@@ -84,7 +95,6 @@
     });
 
     socket.on('stop typing', function (data) {
-      console.log("Entra en stop")
       $('.typing:last').remove();
     });
 
@@ -101,18 +111,3 @@
   });
 </script>
 
-<div>
-  <div class="row">
-    <div class= "col-md-10" id="chat">
-      <ul id="messages"></ul>
-      <form action="" id="chatForm" >
-        <input name="msg" id="m" autocomplete="off" />
-        <input name="user" type="hidden" value="<%= user %>" />
-        <button>Send</button>
-      </form>
-    </div>
-    <div class= "col-md-2">
-      <ul id="usersConnected"></ul>
-    </div>
-  </div>
-</div>

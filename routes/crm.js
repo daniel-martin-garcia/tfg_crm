@@ -423,10 +423,6 @@ router.delete('/posts/:postId(\\d+)/attachments/:attachmentId_wal(\\d+)',   // w
 router.get('/chat/:userId(\\d+)',
     sessionController.adminRequired,
     chatController.index);
-router.post('/chat',
-    sessionController.adminRequired,
-    chatController.post);
-
 
 
 //----------------------------------------------------
